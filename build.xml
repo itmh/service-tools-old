@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="service-tools" basedir="." default="build">
+    <property name="builddir" value="./build"/>
+
+    <target name="init">
+        <mkdir dir="${builddir}"/>
+        <mkdir dir="${builddir}/logs"/>
+    </target>
+
+    <target name="clean">
+        <echo msg="Clean..."/>
+        <delete dir="${builddir}"/>
+    </target>
+
+    <target name="build" depends="clean,init,phpcpd,phpcs,test"/>
+
+    <target name="phpcpd">
+        <exec passthru="true"
+              escape="false"
+              command="phpcpd --log-pmd ${builddir}/logs/pmd.xml ./src"
+                />
+    </target>
+
+    <target name="phpcs">
+        <exec passthru="true"
+              escape="false"
+              command="phpcs --encoding=UTF-8 --standard=./phpcs.xml --extensions=php --report-checkstyle=${builddir}/logs/checkstyle.xml --ignore=./vendor ./src"
+                />
+    </target>
+
+    <target name="test" depends="clean,init">
+        <exec passthru="true"
+              escape="false"
+              command="cp ./tests/_data/buka_sync_dump.sqlite3 ./tests/_data/buka_sync_test.sqlite3"/>
+        <exec passthru="true"
+              escape="false"
+              command="./vendor/bin/codecept run unit --xml='report.xml' --coverage-xml='coverage.xml' --coverage-html='coverage'"
+                />
+    </target>
+
+    <target name="pre-commit" depends="build"/>
+</project>

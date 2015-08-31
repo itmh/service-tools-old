@@ -1,0 +1,33 @@
+{
+  "name": "itmh/local-service-tools",
+  "description": "Service Tools",
+  "license": "ITMH License",
+  "authors": [
+    {
+      "name": "Chshanovskiy Maxim",
+      "email": "chshanovskiy.maxim@itmh.ru"
+    },
+    {
+      "name": "Barashkin Kirill",
+      "email": "barashkin.kirill@itmh.ru"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.4.0",
+    "monolog/monolog": "1.x",
+    "tedivm/stash": "v0.12.2",
+    "guzzlehttp/guzzle": "~5.0",
+    "itmh/service-tools-soap-old": "v0.0.1",
+    "doctrine/dbal": "2.5"
+  },
+  "require-dev": {
+    "codeception/codeception": "*",
+    "codeception/specify": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ServiceTools\\": "src/ServiceTools/"
+    }
+  }
+}
